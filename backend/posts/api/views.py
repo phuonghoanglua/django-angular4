@@ -4,14 +4,11 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,)
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from posts.models import Post
 from .serializers import (
     PostCreateUpdateSerializer,
     PostDetailSerializer,
     PostListSerializer)
-from rest_framework_jwt.utils import jwt_decode_handler
 
 
 class ResultsSetPagination(PageNumberPagination):
@@ -25,8 +22,6 @@ class PostDetailUpdateAPIView(viewsets.GenericViewSet,
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
     lookup_field = 'id'
-    authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -42,8 +37,6 @@ class PostListCreateAPIView(viewsets.GenericViewSet,
                             ListCreateAPIView):
     serializer_class = PostListSerializer
     queryset = Post.objects.all()
-    authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticated]
     pagination_class = ResultsSetPagination
 
     def get_serializer_class(self):

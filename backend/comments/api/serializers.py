@@ -28,15 +28,15 @@ def create_comment_serializer(model_type='post', slug=None,
                 parent_qs = Comment.objects.filter(id=parent_id)
                 if parent_qs.exists() and parent_qs.count() == 1:
                     self.parent_obj = parent_qs.first()
-            return super(CommentCreateSerializer, self).__init__(*args, **kwargs)
+            super(CommentCreateSerializer, self).__init__(*args, **kwargs)
 
         def validate(self, data):
             model_type = self.model_type
             model_qs = ContentType.objects.filter(model=model_type)
             if not model_qs.exists() or model_qs.count() != 1:
                 raise ValidationError("This is not a valid content type")
-            SomeModel = model_qs.first().model_class()
-            obj_qs = SomeModel.objects.filter(slug=self.slug)
+            some_model = model_qs.first().model_class()
+            obj_qs = some_model.objects.filter(slug=self.slug)
             if not obj_qs.exists() or obj_qs.count() != 1:
                 raise ValidationError("This is not a slug for this content type")
             return data
@@ -120,7 +120,8 @@ class CommentDetailSerializer(ModelSerializer):
     def get_content_object_url(self, obj):
         try:
             return obj.content_object.get_api_url()
-        except:
+        except Exception as e:
+            print(e)
             return None
 
     def get_replies(self, obj):

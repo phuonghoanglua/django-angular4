@@ -14,14 +14,14 @@ class CreateUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password')
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> User:
         user = User.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
 
     @staticmethod
-    def validate_email(self, email):
+    def validate_email(email: str) -> str:
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError("Email already exist !")
         return email

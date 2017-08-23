@@ -14,8 +14,6 @@ from .serializers import (CommentListSerializer,
 
 class CommentCreateAPIView(CreateAPIView):
     queryset = Comment.objects.all()
-    # serializer_class = PostCreateUpdateSerializer
-    # permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         model_type = self.request.GET.get("type")

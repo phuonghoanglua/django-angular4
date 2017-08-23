@@ -15,8 +15,10 @@ import { AuthenticationService } from "./services/authentication.service";
 import { PostService } from "./services/post.service";
 import { AlertService } from "./services/alert.service";
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from "./services/user.service";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from "./services/user.service";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import {UserService} from "./services/user.service";
     FormsModule,
     HttpModule,
     routing,
+    BrowserAnimationsModule,
+    ToasterModule,
     NgbModule.forRoot(),
     MyDatePickerModule,
     FroalaEditorModule.forRoot(),
@@ -44,6 +48,7 @@ import {UserService} from "./services/user.service";
     UserService,
     AuthenticationService,
     PostService,
+    ToasterService,
     BaseRequestOptions
   ],
   bootstrap: [AppComponent]

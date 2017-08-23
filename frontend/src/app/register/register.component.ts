@@ -1,34 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgModule, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService, UserService } from '../services/index';
+import { UserService } from '../services/index';
+import { ToasterService } from 'angular2-toaster'
+
 
 @Component({
-  moduleId: module.id,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
     model: any = {};
     loading = false;
     error: any = {};
     constructor(
         private router: Router,
         private userService: UserService,
-        private alertService: AlertService) { }
+        private alertService: ToasterService) { }
 
-    // ngOnInit() {
-    //     // reset login status
-    //     this.alertService.success('Welcome', true);
-    // }
+    ngOnInit() {
+        this.alertService.pop('Welcome to register page !');
+    }
 
     register() {
         this.loading = true;
         this.userService.create(this.model)
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                    this.alertService.pop('Registration successful !');
+                    setTimeout(() =>{
+                      this.router.navigate(['/login']);
+                    }, 2000)
                 },
                 error => {
                     this.error = error.json();
