@@ -1,0 +1,15 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <h1>Home</h1>
+    <p>You're logged in with JWT!!</p>
+    <div>
+        List Posts:
+        <ul>
+            <li *ngFor="let post of posts">{{ post.title }} - {{ post.content }}: {{ post.publish }}
+                <span><a [routerLink]="['/post', post.id]">Edit</a></span>
+            </li>
+        </ul>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <button [routerLink]="['/create-post']" class="btn btn-success">Create New Post</button>
+    </div>
+    <p><a [routerLink]="['/login']">Logout</a></p>
+</div>

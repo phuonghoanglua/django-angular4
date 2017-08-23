@@ -1,0 +1,44 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    environment:
+        POSTGRES_PASSWORD: rootpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+      - ./postgres_data:/var/lib/postgresql/data
+  web:
+    image: "chatapp"
+    ports:
+      - "8888:8888"  # external:internal
+    command: sh /code/runserver.sh
+    volumes:
+      - .:/code
+    links:
+      - redis
+      - postgres
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
+  node:
+    image: "node"
+    command: sh /code/run_node_server.sh
+    volumes:
+      - .:/code
+    links:
+      - web
+    ports:
+      - "4200:4200"
+  #nginx:
+  #  image: "nginx:alpine"
+  #  command: [nginx-debug, '-g', 'daemon off;']
+  #  ports:
+  #    - "80:80"
+  #  links:
+  #    - web
+  #  volumes:
+  #    - ./frontend:/usr/share/nginx/html
+  #    - ./nginx.conf:/etc/nginx/nginx.conf
