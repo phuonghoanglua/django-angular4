@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent, SafeHtmlPipe } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PostsComponent } from './posts/posts.component';
 import { RegisterComponent } from './register/register.component';
@@ -29,6 +29,7 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
     LoginComponent,
     PostsComponent,
     RegisterComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

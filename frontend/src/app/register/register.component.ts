@@ -1,4 +1,4 @@
-import {Component, NgModule, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/index';
 import { ToasterService } from 'angular2-toaster'
@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit{
         this.userService.create(this.model)
             .subscribe(
                 data => {
+                    console.log(data);
                     this.alertService.pop('Registration successful !');
                     setTimeout(() =>{
                       this.router.navigate(['/login']);

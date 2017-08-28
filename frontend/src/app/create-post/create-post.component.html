@@ -1,12 +1,12 @@
 <div class="col-md-10 col-md-offset-2">
     <h2>Create New Post</h2>
     <form name="form" (ngSubmit)="f.form.valid && createPost()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && error.title }">
             <label for="title">Tile</label>
             <input type="text" class="form-control" id="title" name="title" [(ngModel)]="post.title" [ngModelOptions]="{standalone: true}" #title="ngModel" required />
             <div *ngIf="error.title" class="alert alert-danger" >{{ error.title}}</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !content.valid }">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && error.content }">
             <label for="content">Post Body</label>
             <div id="content" [froalaEditor] [(froalaModel)]="post.content">>Hello, Froala!</div>
             <div *ngIf="error.content" class="alert alert-danger">{{ error.content }}</div>
